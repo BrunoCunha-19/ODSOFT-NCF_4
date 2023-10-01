@@ -1,3 +1,14 @@
 plugins {
     id "com.github.node-gradle.node" version "7.0.0"
 }
+
+node {
+    version = '16.18.0' // Use a versão do Node.js que você tem instalada
+    npmVersion = '8.19.2' // Use a versão do npm que você tem instalada
+    download = true
+}
+
+task buildProject(type: NodeTask) {
+    dependsOn 'npmInstall'
+    script = file('buildProjectScript.js')
+}
