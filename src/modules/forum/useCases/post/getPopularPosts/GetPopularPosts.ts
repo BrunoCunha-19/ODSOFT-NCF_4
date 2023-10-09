@@ -22,7 +22,7 @@ export class GetPopularPosts implements UseCase<GetPopularPostsRequestDTO, Promi
   
   public async execute (req: GetPopularPostsRequestDTO): Promise<Response> {
     try {
-      const posts = await this.postRepo.getPopularPosts(req.offset);
+      const posts = await this.postRepo.getPopularPosts(req.offset, req.limit);
       return right(Result.ok<PostDetails[]>(posts))
     } catch (err) {
       return left(new AppError.UnexpectedError(err))

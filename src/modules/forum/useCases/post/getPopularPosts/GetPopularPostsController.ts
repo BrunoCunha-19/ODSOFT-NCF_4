@@ -17,10 +17,13 @@ export class GetPopularPostsController extends BaseController {
 
   async executeImpl (req: DecodedExpressRequest, res: express.Response): Promise<any> {
 
+    console.log(req.query);
+
     const dto: GetPopularPostsRequestDTO = {
-      offset: req.query.offset,
-      userId: !!req.decoded === true ? req.decoded.userId : null
-    }
+      limit: parseInt(req.query.limit),
+      offset: parseInt(req.query.offset),
+      userId: !!req.decoded === true ? req.decoded.userId : null,
+    };
 
     try {
       const result = await this.useCase.execute(dto);

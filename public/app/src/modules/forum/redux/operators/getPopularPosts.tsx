@@ -4,12 +4,12 @@ import * as actionCreators from '../actionCreators'
 import { postService } from '../../services';
 import { Post } from '../../models/Post';
 
-function getPopularPosts (offset?: number) {
+function getPopularPosts (offset?: number, limit?: number) {
   return async (dispatch: any) => {
 
     dispatch(actionCreators.getPopularPosts());
 
-    const result = await postService.getPopularPosts(offset);
+    const result = await postService.getPopularPosts(offset, limit);
 
     if (result.isLeft()) {
       const error: string = result.value;

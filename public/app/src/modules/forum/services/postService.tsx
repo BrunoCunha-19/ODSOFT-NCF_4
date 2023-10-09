@@ -11,7 +11,7 @@ import { PostDTO } from "../dtos/postDTO";
 export interface IPostService {
   createPost (title: string, type: PostType, text?: string, link?: string): Promise<APIResponse<void>>;
   getRecentPosts (offset?: number): Promise<APIResponse<Post[]>>;
-  getPopularPosts (offset?: number): Promise<APIResponse<Post[]>>
+  getPopularPosts (offset?: number, limit?: number): Promise<APIResponse<Post[]>>
   getPostBySlug (slug: string): Promise<APIResponse<Post>>;
   upvotePost (slug: string): Promise<APIResponse<void>>;
   downvotePost (slug: string): Promise<APIResponse<void>>;
@@ -63,14 +63,14 @@ export class PostService extends BaseAPI implements IPostService {
     }
   }
 
-  public async getPopularPosts (offset?: number): Promise<APIResponse<Post[]>> {
+  public async getPopularPosts (offset?: number, limit: number = 5): Promise<APIResponse<Post[]>> {
     try {
       const accessToken = this.authService.getToken('access-token');
       const isAuthenticated = !!accessToken === true;
       const auth = {
         authorization: accessToken
       };
-      const response = await this.get('/posts/popular', { offset }, 
+      const response = await this.get('/posts/popular', { offset, limit }, 
         isAuthenticated ? auth : null
       );
 

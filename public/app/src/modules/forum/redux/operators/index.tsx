@@ -21,7 +21,7 @@ export interface IForumOperations {
   getPostBySlug (slug: string): void;
   createReplyToPost (text: string, slug: string): void;
   getComments (slug: string, offset?: number): void;
-  getPopularPosts (offset?: number): void;
+  getPopularPosts (offset?: number, limit?: number): void;
   getCommentByCommentId (commentId: string): void;
   createReplyToComment (comment: string, parentCommentId: string, slug: string): void;
   getCommentReplies (slug: string, commentId: string, offset?: number): void;
