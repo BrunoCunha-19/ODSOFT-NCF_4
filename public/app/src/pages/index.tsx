@@ -129,6 +129,7 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
             onUpvoteClicked={() => this.props.upvotePost(p.slug)}
             onDownvoteClicked={() => this.props.downvotePost(p.slug)}
             isLoggedIn={this.props.users.isAuthenticated}
+            activeFilter={activeFilter}
             {...p}
           />
         ))}

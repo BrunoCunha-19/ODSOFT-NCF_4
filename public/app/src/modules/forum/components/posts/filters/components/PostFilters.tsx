@@ -2,7 +2,7 @@
 import React from 'react';
 import "../styles/PostFilters.sass"
 
-export type PostFilterType = 'POPULAR' | 'NEW';
+export type PostFilterType = 'POPULAR' | 'NEW' | '';
 
 interface FilterProps {
   activeFilter: PostFilterType;
@@ -32,6 +32,7 @@ const PostFilters: React.FC<PostFilterProps> = (props) => (
       text="Popular"
       onClick={props.onClick}
     />
+    <div className="post-filters-divider"></div>
     <Filter 
       activeFilter={props.activeFilter}
       filterType={'NEW'}
