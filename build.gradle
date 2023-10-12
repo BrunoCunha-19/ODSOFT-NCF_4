@@ -12,3 +12,17 @@ task buildProject(type: NodeTask) {
     dependsOn 'npmInstall'
     script = file('buildProjectScript.js')
 }
+
+task runUnitTests(type: NpxTask) {
+    command = 'jest'
+}
+
+task generateUnitTestsCoverageReport(type: NpxTask) {
+    command = 'jest'
+    args = ['--coverage', '--coverageReporters="text"', '--coverageReporters="html"', '--coverageReporters="json"']
+}
+
+task runDevTests(type: NpxTask) {
+    command = 'jest'
+    args = ['--watchAll']
+}
