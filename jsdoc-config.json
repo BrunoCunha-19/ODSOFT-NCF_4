@@ -1,0 +1,18 @@
+{
+    "plugins": ["plugins/markdown"],
+    "tags": {
+      "allowUnknownTags": true
+    },
+    "source": {
+      "include": ["dist"],
+      "exclude": ["node_modules"],
+      "includePattern": ".+\\.js(doc|x)?$", 
+      "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "opts": {
+      "template" : "node_modules/docdash",
+      "recurse": true, 
+      "destination": "docs/JSDoc"
+    }
+  }
+  

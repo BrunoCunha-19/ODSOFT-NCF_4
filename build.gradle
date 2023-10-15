@@ -13,6 +13,10 @@ task buildProject(type: NodeTask) {
     script = file('buildProjectScript.js')
 }
 
+task generateDocs(type: NodeTask) {
+    script = file('generate-docs.js')
+}
+
 task runUnitTests(type: NpxTask) {
     command = 'jest'
 }
