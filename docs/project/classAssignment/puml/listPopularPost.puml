@@ -1,0 +1,36 @@
+@startuml
+actor User as "User"
+User -> index.tsx : Asks to see the popular posts
+
+participant index.tsx as "(Front-End) index.tsx \n public/app/src/pages"
+index.tsx -> getPopularPosts.tsx : getPopularPosts()
+
+participant getPopularPosts.tsx as "(Front-End) getPopularPosts.tsx \n public/app/src/modules/forum/redux/operators"
+getPopularPosts.tsx -> postService.tsx : getPopularPosts()
+
+participant postService.tsx as "(Front-End) postService \n public/app/src/services"
+postService.tsx -> postRouter : GET HTTP Request to (baseurl)/posts/popular
+
+participant postRouter as "(Back-end) postRouterb \n src/modules/forum/infra/https/routes/post"
+postRouter -> getPopularPostController : executeImpl(request)
+
+participant getPopularPostController as "(Back-end) getPopularPostController \n src/modules/forum/useCases/post/getPopularPosts"
+getPopularPostController -> getPopularPostsUseCase : execute(GetPopularRequestsDTO)
+
+participant getPopularPostsUseCase as "(Back-end) getPopularPosts \n src/modules/forum/useCases/post/getPopularPosts"
+getPopularPostsUseCase -> postRepo : getPopularPosts()
+
+participant postRepo as "(Back-end) postRepo \n src/modules/forum/repos/implementations"
+postRepo -> Database : Executes Query
+
+Database --> postRepo : returns popular posts
+postRepo --> getPopularPostsUseCase : returns popular posts
+getPopularPostsUseCase --> getPopularPostController : returns popular posts
+getPopularPostController --> postRouter : returns popular posts
+postRouter --> postService.tsx : returns popular posts
+postService.tsx --> getPopularPosts.tsx : returns popular posts
+getPopularPosts.tsx --> index.tsx : returns popular posts
+index.tsx --> User : shows popular posts
+
+
+@enduml
